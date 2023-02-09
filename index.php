@@ -26,7 +26,7 @@
       <li><a href="/tracnghiem/lichsu.php" id="aHistory">Lịch sử thi</a></li>      
     </ul>
     <ul class="nav navbar-nav navbar-right" id="right-nav">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+      <li><a href="#" id="aProfile"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
       <li><a href="#" id="aLogout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
     </ul>
   </div>
@@ -64,6 +64,8 @@
 </html>
 
 <?php include('modal.php')?>
+<?php include('modalProfile.php')?>
+<?php include('child-profile.php')?>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -74,12 +76,7 @@ $(document).ready(function(){
   $('#btnSave').hide();
 });
 
-$('#aLogout').click(function(e){
-  e.preventDefault();
-  sessionStorage.removeItem("userLogin");
-  alert('Đăng xuất tài khoản thành công!');
-  location.reload();
-})
+
 
 
 $('#btnSave').click(function(){
@@ -100,22 +97,6 @@ $('#btnSave').click(function(){
 
 
 
-
-function GetUser(){
-  if(sessionStorage.userLogin){
-    $.ajax({
-    url:'profile.php',
-    type:'get',
-    data:{username:sessionStorage.userLogin},
-    success:function(data){
-      $('#right-nav').show();
-      $('#aHistory').show();
-      $('#spFullname').text(`${data} - `)
-    }
-  })
-  }
- 
-}
 
 
 
