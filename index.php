@@ -89,7 +89,8 @@ $('#btnSave').click(function(){
       result:JSON.stringify(result)
     },
     success:function(data){
-      console.log(data)
+      alert(data);
+      location.reload();
     }
   })
 })

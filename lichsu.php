@@ -117,34 +117,34 @@ function GetQuestion(question){
         d +=   '<fieldset>';
         d+=   '<div class="radio col-md-12 ">';
         if(question.choice == 'A'){
-          d+=    '<label class = "A"><input type="radio" checked class="A" name = "'+q.id+'"><span class="text-danger">A: </span>'+q.option_a+'</label>';
+          d+=    '<label class = "A"><input type="radio" onclick="return false;" checked class="A" name = "'+q.id+'"><span class="text-danger">A: </span>'+q.option_a+'</label>';
         }else{
-          d+=    '<label class = "A"><input type="radio"  class="A" name = "'+q.id+'"><span class="text-danger">A: </span>'+q.option_a+'</label>';
+          d+=    '<label class = "A"><input type="radio" onclick="return false;"  class="A" name = "'+q.id+'"><span class="text-danger">A: </span>'+q.option_a+'</label>';
         }
         
         d+=   '</div>';
 
         d+=  ' <div class="radio col-md-12">';
         if(question.choice == 'B'){
-          d+=    '<label class = "B"><input type="radio" checked class="B" name = "'+q.id+'"><span class="text-danger">B: </span>'+q.option_b+'</label>';
+          d+=    '<label class = "B"><input type="radio"  checked onclick="return false;" class="B" name = "'+q.id+'"><span class="text-danger">B: </span>'+q.option_b+'</label>';
         }else{
-          d+=    '<label class = "B"><input type="radio" class="B" name = "'+q.id+'"><span class="text-danger">B: </span>'+q.option_b+'</label>';
+          d+=    '<label class = "B"><input type="radio"  onclick="return false;" class="B" name = "'+q.id+'"><span class="text-danger">B: </span>'+q.option_b+'</label>';
         } 
         d+=   '</div>';
 
         d+=   '<div class="radio  col-md-12">';
         if(question.choice == 'C'){
-        d+=     '<label class = "C"><input type="radio" checked class="C" name = "'+q.id+'"><span class="text-danger">C: </span>'+q.option_c+'</label>';
+        d+=     '<label class = "C"><input type="radio" onclick="return false;" checked class="C" name = "'+q.id+'"><span class="text-danger">C: </span>'+q.option_c+'</label>';
         }else{
-          d+=     '<label class = "C"><input type="radio" class="C" name = "'+q.id+'"><span class="text-danger">C: </span>'+q.option_c+'</label>';
+          d+=     '<label class = "C"><input type="radio" onclick="return false;" class="C" name = "'+q.id+'"><span class="text-danger">C: </span>'+q.option_c+'</label>';
         }
         d+=   '</div>';
 
         d+=   '<div class="radio col-md-12">';
         if(question.choice == 'D'){
-        d+=     '<label class = "D"><input type="radio" checked class="D" name = "'+q.id+'"><span class="text-danger">D: </span>'+q.option_d+'</label>';
+        d+=     '<label class = "D"><input type="radio" onclick="return false;" checked class="D" name = "'+q.id+'"><span class="text-danger">D: </span>'+q.option_d+'</label>';
         }else{
-          d+=     '<label class = "D"><input type="radio" class="D" name = "'+q.id+'"><span class="text-danger">D: </span>'+q.option_d+'</label>';
+          d+=     '<label class = "D"><input type="radio" onclick="return false;" class="D" name = "'+q.id+'"><span class="text-danger">D: </span>'+q.option_d+'</label>';
         }
         d+=   '</div>';
         d+=  '</fieldset>';
@@ -152,7 +152,7 @@ function GetQuestion(question){
         index++;
      
       $('#mdBody').append(d);
-      $('#question_'+question.id+' > fieldset > div > label.'+q.answer).css("background-color", "green");
+      $('#question_'+question.id+' > fieldset > div > label.'+q.answer).css("background-color", "yellow");
     }
   });
 }
