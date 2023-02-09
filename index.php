@@ -19,7 +19,7 @@
   <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">WebSiteName</a>
+    <a class="navbar-brand" href="/tracnghiem">Trắc nghiệm.php</a>
     </div>
     <ul class="nav navbar-nav">
       <li class="active"><a href="/tracnghiem">Home</a></li>
@@ -85,8 +85,7 @@ $('#btnSave').click(function(){
     url:'ketqua.php',
     type:'post',
     data:{
-      username:sessionStorage.userLogin,
-      exam_date:new Date($.now()),
+      username:sessionStorage.userLogin,     
       result:JSON.stringify(result)
     },
     success:function(data){
