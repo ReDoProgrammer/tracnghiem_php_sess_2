@@ -9,9 +9,9 @@ $('#aProfile').click(function(e){
         data:{username:sessionStorage.userLogin},
         success:function(data){
             var q = jQuery.parseJSON( data);//ép dữ liệu trả về qua json
-            $('#txtUsername').prop('readonly', true);
-            $('#txtUsername').val(q.username);
-            $('#txtPassword').val(q.password);
+            $('#txtUsernameLogin').prop('readonly', true);
+            $('#txtUsernameLogin').val(q.username);
+            $('#txtPasswordLogin').val(q.password);
             $('#txtConfirmPassword').val(q.password);
             $('#txtFullname').val(q.fullname);
             $('#txtPhone').val(q.phone);

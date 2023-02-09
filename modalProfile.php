@@ -10,11 +10,11 @@
   <div class="modal-body">
    <div class="form-group">
     <label for="">Tài khoản</label>
-    <input type="text" placeholder="Tài khoản đăng nhập" id="txtUsername" class="form-control">
+    <input type="text" placeholder="Tài khoản đăng nhập" id="txtUsernameLogin" class="form-control">
    </div>
    <div class="form-group col-md-6">
     <label for="">Mật khẩu</label>
-    <input type="password" placeholder="Mật khẩu" id="txtPassword" class="form-control">
+    <input type="password" placeholder="Mật khẩu" id="txtPasswordLogin" class="form-control">
    </div>
    <div class="form-group col-md-6">
     <label for="">Xác nhận mật khẩu</label>
@@ -50,8 +50,8 @@
 
 <script>
   $('#btnSubmitProfile').click(function(){
-    let username = $('#txtUsername').val();
-        let password = $('#txtPassword').val();
+    let username = $('#txtUsernameLogin').val();
+        let password = $('#txtPasswordLogin').val();
         let confirm_password = $('#txtConfirmPassword').val();
         let fullname = $('#txtFullname').val();
         let phone = $('#txtPhone').val();
