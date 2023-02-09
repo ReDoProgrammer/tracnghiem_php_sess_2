@@ -121,23 +121,9 @@ var username = '';
 //sự kiện cập nhật câu hỏi
 	$(document).on('click',"input[name='update']",function() {
 		
-	   var trid = $(this).closest('tr').attr('id'); // lấy id của dòng đc chọn trên table khi click vào button có tên là update
-		GetDetail(trid);//lấy dữ liệu câu hỏi dựa vào id tìm đc ở trên và đổ dữ liệu cho các input
-	   	
-		
-	   	$('#txaQuestion').attr('readonly',false);
-		$('#txaOptionA').attr('readonly',false);
-		$('#txaOptionB').attr('readonly',false);
-		$('#txaOptionC').attr('readonly',false);
-		$('#txaOptionD').attr('readonly',false);
-
-		$('#rdOptionA').attr('disabled',false);
-		$('#rdOptionB').attr('disabled',false);
-		$('#rdOptionC').attr('disabled',false);
-		$('#rdOptionD').attr('disabled',false);
-
-		$('#txtQuestionId').val(trid);
-		$('#btnSubmit').show();
+		username = $(this).closest('tr').attr('username'); // table row ID 	  
+		GetDetail();
+		$('#txtUsername').prop('readonly', true);//sửa các thuộc tính khác, ngoại trừ username
 	});
 
 //sự kiện của button xem chi tiết câu hỏi

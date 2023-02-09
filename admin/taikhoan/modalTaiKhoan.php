@@ -74,22 +74,45 @@
             return;
         }
 
-        //tiến hành truy vấn dữ liệu bằng ajax để thêm mới tài khoản vào csdl
-        $.ajax({
-            url:'add.php',
-            type:'post',
-            data:{
-                username,
-                password,
-                fullname,
-                phone,
-                email,
-                address
-            },
-            success:function(data){
-                alert(data)
-            }
-        })
+
+        if(username.length > 0){//cap nhat ai khoan da co
+              //tiến hành truy vấn dữ liệu bằng ajax để cập nhật tài khoản vào csdl
+              $.ajax({
+                          url:'update.php',
+                          type:'post',
+                          data:{
+                              username,
+                              password,
+                              fullname,
+                              phone,
+                              email,
+                              address
+                          },
+                          success:function(data){
+                              alert(data)
+                              $('#modalTaiKhoan').modal('hide');
+                              ReadData();
+                          }
+                      })
+        }else{//them moi tai khoan
+//tiến hành truy vấn dữ liệu bằng ajax để thêm mới tài khoản vào csdl
+            $.ajax({
+                        url:'add.php',
+                        type:'post',
+                        data:{
+                            username,
+                            password,
+                            fullname,
+                            phone,
+                            email,
+                            address
+                        },
+                        success:function(data){
+                            alert(data)
+                        }
+                    })
+        }
+        
     })
 
     $('#modalTaiKhoan').on('hidden.bs.modal', function () {
@@ -112,6 +135,8 @@
         $('#txtFullname').prop('readonly', false);
         $('#txtAddress').prop('readonly', false);
         $('#txtPhone').prop('readonly', false);
+
+        $('#btnSubmit').show();
 
 
 })
