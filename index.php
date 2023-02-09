@@ -19,7 +19,7 @@
     <div class="panel-group">
 
       <div class="panel panel-primary">
-        <div class="panel-heading">Làm bài thi</div>
+        <div class="panel-heading"><span id="spFullname" class = "font-weight-bold "></span>Làm bài thi</div>
         <div class="panel-body">
           <div class="row">
             <div class="col-sm-12 text-right">
@@ -50,7 +50,23 @@
 <script type="text/javascript">
 $(document).ready(function(){
   $('#btnFinish').hide();
+  GetUser();
 });
+
+function GetUser(){
+  $.ajax({
+    url:'profile.php',
+    type:'get',
+    data:{username:sessionStorage.userLogin},
+    success:function(data){
+      $('#spFullname').text(`${data} - `)
+    }
+  })
+}
+
+
+
+
 var questions;//biến toàn cục để lưu danh sách câu hỏi
 $('#btnStart').click(function(){
   if(!sessionStorage.userLogin){

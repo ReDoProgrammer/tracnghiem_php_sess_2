@@ -46,6 +46,7 @@
                    }else{          
                        sessionStorage.setItem("userLogin",q.username);
                         $('#modalLogin').modal('hide');
+                        GetUser();//show thông tin tài khoản đã đăng nhập
                       
                    }
             }
