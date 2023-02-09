@@ -29,7 +29,7 @@
 				 <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Tìm kiếm" id="txtSearch"/>
 			        <div class="input-group-btn">
-			          <button class="btn btn-primary" >
+			          <button class="btn btn-primary" id="btnSearch">
 			            <span class="glyphicon glyphicon-search"></span>
 			          </button>
 			        </div>
@@ -75,7 +75,7 @@
 <script type="text/javascript">
 	var page = 1;
 	var search = "";
-
+var username = '';
 
 	//trong sự kiện trang được load xong thì gọi tới hàm load ds tài khoản
 	$(document).ready(function(){
@@ -142,26 +142,16 @@
 
 //sự kiện của button xem chi tiết câu hỏi
 	$(document).on('click',"input[name='view']",function() {
-		var trid = $(this).closest('tr').attr('id'); // table row ID 	  
-		GetDetail(trid);
-
-		/*
-			Trong trường hợp xem chi tiết của câu hỏi
-			không cho người dùng chỉnh sửa các giá trị
-			và ẩn nút xác nhận
-		*/
-	   	$('#txaQuestion').attr('readonly','readonly');
-		$('#txaOptionA').attr('readonly','readonly');
-		$('#txaOptionB').attr('readonly','readonly');
-		$('#txaOptionC').attr('readonly','readonly');
-		$('#txaOptionD').attr('readonly','readonly');
-
-		$('#rdOptionA').attr('disabled','readonly');
-		$('#rdOptionB').attr('disabled','readonly');
-		$('#rdOptionC').attr('disabled','readonly');
-		$('#rdOptionD').attr('disabled','readonly');
-
+		username = $(this).closest('tr').attr('username'); // table row ID 	  
+		GetDetail();
+	
 		$('#btnSubmit').hide();
+		$('#txtUsername').prop('readonly', true);
+		$('#txtPassword').prop('readonly', true);
+		$('#txtConfirmPassword').prop('readonly', true);
+		$('#txtFullname').prop('readonly', true);
+		$('#txtAddress').prop('readonly', true);
+		$('#txtPhone').prop('readonly', true);
 	});
 
 //sự kiện của button xóa câu hỏi
@@ -186,40 +176,26 @@
 	});
 
 //hàm load thông tin câu hỏi dựa vào id
-	function GetDetail(id){//hàm lấy câu hỏi dựa vào id câu hỏi
+	function GetDetail(){//hàm lấy câu hỏi dựa vào id câu hỏi
 
 		
 	   $.ajax({
 	   		url:'detail.php',//chỉ đường dẫn tới file detail.php để lấy thông tin câu hỏi
 	   		type:'get',//phuong thức get
 	   		data:{
-	   			id:id//truyền tham số có giá trị bằng giá trị của id câu hỏi
+	   			username //vì username được sử dụng không trùng lặp nên có thể xem nó là khóa chính primary key/ unique
 	   		},
 	   		success:function(data){   			
 				var q = jQuery.parseJSON( data);//ép dữ liệu trả về qua json
-				
-				$('#txaQuestion').val(q['question']);//set giá trị cho textarea có id là txaQuestion		
-				$('#txaOptionA').val(q['option_a']);//set giá trị cho textarea có id là txaOption_a(đáp án a)
-				$('#txaOptionB').val(q['option_b']);//set giá trị cho textarea có id là txaOption_b(đáp án c)
-				$('#txaOptionC').val(q['option_c']);//set giá trị cho textarea có id là txaOption_c(đáp án c)
-				$('#txaOptionD').val(q['option_d']);//set giá trị cho textarea có id là txaOption_d(đáp án d)
-
-				$('#modalQuestion').modal();//hiện modal có id là modalQuestion
-
-	   			switch(q['answer']){//dùng switch case dựa vào giá trị của answer để tick đúng đáp án
-	   				case 'A':
-	   					$('#rdOptionA').prop('checked',true);
-   						break;
-   					case 'B':
-	   					$('#rdOptionB').prop('checked',true);
-	   					break;
-   					case 'C':
-	   					$('#rdOptionC').prop('checked',true);
-	   					break;
-   					case 'D':
-	   					$('#rdOptionD').prop('checked',true);
-	   					break;
-	   			}
+				console.log(q);
+				$('#modalTaiKhoan').modal();
+				$('#txtUsername').val(q.username);
+				$('#txtPassword').val(q.password);
+				$('#txtConfirmPassword').val(q.password);
+				$('#txtFullname').val(q.fullname);
+				$('#txtPhone').val(q.phone);
+				$('#txtEmail').val(q.email);
+				$('#txtAddress').val(q.address);
 	   		}
 
 	   });
@@ -235,8 +211,8 @@
 				page:page
 			},
 			success:function(data){
-				console.log(1);
-				console.log(data);
+				$('#tbUsers').empty();
+				$('#tbUsers').append(data);
 			}
 		});
 	}

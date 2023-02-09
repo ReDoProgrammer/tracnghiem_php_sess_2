@@ -91,4 +91,28 @@
             }
         })
     })
+
+    $('#modalTaiKhoan').on('hidden.bs.modal', function () {
+      ReadData();
+      username = '';//cho dù thêm mới hay sửa thì khi đóng modal cũng trả về giá trị mặc định cho username
+      
+      //set về giá trị mặc định cho text input
+      $('#txtUsername').val('');
+				$('#txtPassword').val('');
+				$('#txtConfirmPassword').val('');
+				$('#txtFullname').val('');
+				$('#txtPhone').val('');
+				$('#txtEmail').val('');
+				$('#txtAddress').val('');
+
+        //trả về trạng thái readonly = false cho các input
+        $('#txtUsername').prop('readonly', false);
+        $('#txtPassword').prop('readonly', false);
+        $('#txtConfirmPassword').prop('readonly', false);
+        $('#txtFullname').prop('readonly', false);
+        $('#txtAddress').prop('readonly', false);
+        $('#txtPhone').prop('readonly', false);
+
+
+})
 </script>
