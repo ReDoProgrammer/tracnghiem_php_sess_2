@@ -15,6 +15,23 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
+  <div class="container-fluid">
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">WebSiteName</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/tracnghiem">Home</a></li>
+      <li><a href="/tracnghiem/lichsu.php" id="aHistory">Lịch sử thi</a></li>      
+    </ul>
+    <ul class="nav navbar-nav navbar-right" id="right-nav">
+      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
+      <li><a href="#" id="aLogout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+    </ul>
+  </div>
+</nav>
+  </div>
   <div class="container">
     <div class="panel-group">
 
@@ -30,6 +47,7 @@
           <div class="row">
             <div class="col-sm-12 text-center">
               <button type="button" class="btn btn-warning" id="btnFinish">Kết thúc bài thi</button>
+              <button class="btn btn-primary" id="btnSave">Lưu bài thi</button>
             </div>
           </div>
           <div class="row">
@@ -49,25 +67,61 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
+  $('#right-nav').hide();
   $('#btnFinish').hide();
+  $('#aHistory').hide();
   GetUser();
+  $('#btnSave').hide();
 });
 
-function GetUser(){
+$('#aLogout').click(function(e){
+  e.preventDefault();
+  sessionStorage.removeItem("userLogin");
+  alert('Đăng xuất tài khoản thành công!');
+  location.reload();
+})
+
+
+$('#btnSave').click(function(){
+
   $.ajax({
+    url:'ketqua.php',
+    type:'post',
+    data:{
+      username:sessionStorage.userLogin,
+      exam_date:new Date($.now()),
+      result:JSON.stringify(result)
+    },
+    success:function(data){
+      console.log(data)
+    }
+  })
+})
+
+
+
+
+function GetUser(){
+  if(sessionStorage.userLogin){
+    $.ajax({
     url:'profile.php',
     type:'get',
     data:{username:sessionStorage.userLogin},
     success:function(data){
+      $('#right-nav').show();
+      $('#aHistory').show();
       $('#spFullname').text(`${data} - `)
     }
   })
+  }
+ 
 }
 
 
 
 
 var questions;//biến toàn cục để lưu danh sách câu hỏi
+var result =[]; // biến để lưu kết quả thi
 $('#btnStart').click(function(){
   if(!sessionStorage.userLogin){
 		$('#modalLogin').modal();
@@ -75,6 +129,7 @@ $('#btnStart').click(function(){
       GetQuestions();
       $('#btnFinish').show();
       $(this).hide();
+      result = []; //thiết lập mảng kết quả về mặc định là 1 mảng trống
     }
  
 });
@@ -82,7 +137,9 @@ $('#btnStart').click(function(){
 $('#btnFinish').click(function(){
   $(this).hide();
   $('#btnStart').show();
+  $('#btnSave').show();
   CheckResult();
+ 
 });
 
 function CheckResult(){
@@ -103,6 +160,8 @@ function CheckResult(){
         console.log('Câu có id: '+id+' sai');
     }
 
+    result.push({id,choice,answer});// luu ket qua thi vao mang
+   
     //bước 3: đánh dấu đáp án đúng để người dùng đối chiếu
 
     $('#question_'+id+' > fieldset > div > label.'+answer).css("background-color", "yellow");
@@ -110,6 +169,7 @@ function CheckResult(){
   });
 
   $('#mark').text('Điểm của bạn là: '+mark);
+
 }
 
 function GetQuestions(){
