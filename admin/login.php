@@ -85,7 +85,7 @@
 				
 				
                     var q = jQuery.parseJSON( data);//ép dữ liệu trả về qua json
-                    console.log({q})
+                   
                     if(q == false){
                         alert('Tài khoản hoặc mật khẩu không đúng!');
                         

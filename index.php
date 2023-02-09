@@ -45,15 +45,22 @@
 </body>
 </html>
 
+<?php include('modal.php')?>
+
 <script type="text/javascript">
 $(document).ready(function(){
   $('#btnFinish').hide();
 });
 var questions;//biến toàn cục để lưu danh sách câu hỏi
 $('#btnStart').click(function(){
-  GetQuestions();
-  $('#btnFinish').show();
-  $(this).hide();
+  if(!sessionStorage.userLogin){
+		$('#modalLogin').modal();
+		}else{
+      GetQuestions();
+      $('#btnFinish').show();
+      $(this).hide();
+    }
+ 
 });
 
 $('#btnFinish').click(function(){
