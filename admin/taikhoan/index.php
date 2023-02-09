@@ -18,7 +18,7 @@
 
 </head>
 <body>
-	<a href="/tracnghiem/admin/">Quản lý câu hỏi</a>
+	<a href="/tracnghiem/admin/">Quản lý tài khoản</a>
 	<div class="container">
 
 
@@ -75,7 +75,7 @@
 <script type="text/javascript">
 	var page = 1;
 	var search = "";
-var username = '';
+var usr = '';
 
 	//trong sự kiện trang được load xong thì gọi tới hàm load ds tài khoản
 	$(document).ready(function(){
@@ -89,27 +89,7 @@ var username = '';
 		$('#btnSearch').click();
 	});
 
-	$('#btnQuestion').click(function(){
-		//khi thêm mới mặc định id của câu hỏi là 1 chuỗi trống
-		$('#txtQuestionId').val('');
-
-		//set các giá trị mặc định cho các input khi thêm mới
-		$('#txaQuestion').val('');
-		$('#txaOptionA').val('');
-		$('#txaOptionB').val('');
-		$('#txaOptionC').val('');
-		$('#txaOptionD').val('');
-
-		//reset lại giá trị cho các radio button --> không chọn thằng nào hết
-        $('#rdOptionA').prop('checked',false);
-        $('#rdOptionB').prop('checked',false);
-        $('#rdOptionC').prop('checked',false);
-        $('#rdOptionD').prop('checked',false);
-
-
-
-		$('#modalQuestion').modal();
-	});
+	
 
 	$('#btnSearch').click(function(){
 		let search = $('#txtSearch').val().trim();
@@ -118,17 +98,17 @@ var username = '';
 	});
 
 	
-//sự kiện cập nhật câu hỏi
+//sự kiện cập nhật tài khoản
 	$(document).on('click',"input[name='update']",function() {
 		
-		username = $(this).closest('tr').attr('username'); // table row ID 	  
+		usr = $(this).closest('tr').attr('username'); // table row ID 	  
 		GetDetail();
 		$('#txtUsername').prop('readonly', true);//sửa các thuộc tính khác, ngoại trừ username
 	});
 
-//sự kiện của button xem chi tiết câu hỏi
+//sự kiện của button xem chi tiết tài khoản
 	$(document).on('click',"input[name='view']",function() {
-		username = $(this).closest('tr').attr('username'); // table row ID 	  
+		usr = $(this).closest('tr').attr('username'); // table row ID 	  
 		GetDetail();
 	
 		$('#btnSubmit').hide();
@@ -140,17 +120,17 @@ var username = '';
 		$('#txtPhone').prop('readonly', true);
 	});
 
-//sự kiện của button xóa câu hỏi
+//sự kiện của button xóa tài khoản
 	$(document).on('click',"input[name='delete']",function() {
 		
-	    var trid = $(this).closest('tr').attr('id'); // lấy id của dòng đc chọn trên table khi click vào
+	    
 	 
-	   	if(confirm("Bạn chắc chắn muốn xóa câu hỏi này?") == true){
+	   	if(confirm("Bạn chắc chắn muốn xóa tài khoản này?") == true){
 	   		$.ajax({
 	   			url:'delete.php',
 	   			type:'post',
 	   			data:{
-	   				id:trid
+	   				username: $(this).closest('tr').attr('username') // lấy id của dòng đc chọn trên table khi click vào
 	   			},
 	   			success:function(data){
 	   				alert(data);
@@ -161,15 +141,15 @@ var username = '';
   
 	});
 
-//hàm load thông tin câu hỏi dựa vào id
-	function GetDetail(){//hàm lấy câu hỏi dựa vào id câu hỏi
+//hàm load thông tin tài khoản dựa vào id
+	function GetDetail(){//hàm lấy tài khoản dựa vào id tài khoản
 
 		
 	   $.ajax({
-	   		url:'detail.php',//chỉ đường dẫn tới file detail.php để lấy thông tin câu hỏi
+	   		url:'detail.php',//chỉ đường dẫn tới file detail.php để lấy thông tin tài khoản
 	   		type:'get',//phuong thức get
 	   		data:{
-	   			username //vì username được sử dụng không trùng lặp nên có thể xem nó là khóa chính primary key/ unique
+	   			username:usr //vì username được sử dụng không trùng lặp nên có thể xem nó là khóa chính primary key/ unique
 	   		},
 	   		success:function(data){   			
 				var q = jQuery.parseJSON( data);//ép dữ liệu trả về qua json
@@ -187,7 +167,7 @@ var username = '';
 	   });
 	}
 
-//hàm load ds câu hỏi
+//hàm load ds tài khoản
 	function ReadData(){
 		$.ajax({
 			url:'view.php',

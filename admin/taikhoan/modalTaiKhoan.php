@@ -74,8 +74,9 @@
             return;
         }
 
+        console.log({username})
 
-        if(username.length > 0){//cap nhat ai khoan da co
+        if(usr.trim().length != 0){//cap nhat ai khoan da co
               //tiến hành truy vấn dữ liệu bằng ajax để cập nhật tài khoản vào csdl
               $.ajax({
                           url:'update.php',
@@ -117,7 +118,7 @@
 
     $('#modalTaiKhoan').on('hidden.bs.modal', function () {
       ReadData();
-      username = '';//cho dù thêm mới hay sửa thì khi đóng modal cũng trả về giá trị mặc định cho username
+      usr = '';//cho dù thêm mới hay sửa thì khi đóng modal cũng trả về giá trị mặc định cho username
       
       //set về giá trị mặc định cho text input
       $('#txtUsername').val('');
