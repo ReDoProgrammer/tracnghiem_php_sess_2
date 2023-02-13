@@ -80,13 +80,13 @@ $(document).ready(function(){
 
 
 $('#btnSave').click(function(){
-
   $.ajax({
     url:'ketqua.php',
     type:'post',
     data:{
       username:sessionStorage.userLogin,     
-      result:JSON.stringify(result)
+      result:JSON.stringify(result),
+      mark
     },
     success:function(data){
       alert(data);
@@ -103,11 +103,13 @@ $('#btnSave').click(function(){
 
 var questions;//biến toàn cục để lưu danh sách câu hỏi
 var result =[]; // biến để lưu kết quả thi
+var mark = 0;
 $('#btnStart').click(function(){
   if(!sessionStorage.userLogin){
 		$('#modalLogin').modal();
 		}else{
       GetQuestions();
+      mark = 0;
       $('#btnFinish').show();
       $(this).hide();
       result = []; //thiết lập mảng kết quả về mặc định là 1 mảng trống
@@ -124,7 +126,7 @@ $('#btnFinish').click(function(){
 });
 
 function CheckResult(){
-  let mark = 0;
+ 
   $('#questions div.row').each(function(k,v){
     //bước 1: lấy đáp án đúng của câu hỏi
     let id = $(v).find('h5').attr('id');
