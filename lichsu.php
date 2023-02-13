@@ -42,7 +42,8 @@
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col" width="80%">Ngày thi</th>
+              <th scope="col" width="40%">Ngày thi</th>
+              <th scope="col" width="40%">Điểm</th>
             
               <th scope="col" class="text-right"></th>
             </tr>

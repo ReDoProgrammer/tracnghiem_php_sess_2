@@ -11,6 +11,7 @@
 	   	$data.= '<tr id='.$result['id'].'>';
 	     	$data.=  '<th scope="row">'.($index++).'</th>';
 	     	$data.= '<td class="text-primary">'.$result['exam_date'].'</td>';
+	     	$data.= '<td class="text-primary">'.$result['mark'].'</td>';
 	     	$data.= '<td class="text-right">';
 	     	$data.=    '<input type="button" class="btn btn-xs btn-info" value="Xem" name="view">';
 	     			     
