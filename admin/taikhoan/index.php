@@ -18,7 +18,7 @@
 
 </head>
 <body>
-	<a href="/tracnghiem/admin/">Quản lý tài khoản</a>
+	<a href="/tracnghiem/admin/">Quản lý ngân hàng câu hỏi</a>
 	<div class="container">
 
 
@@ -71,6 +71,8 @@
 </body>
 </html>
 <?php include('modalTaiKhoan.php');?>
+<?php include('modalMark.php');?>
+<?php include('modalChiTiet.php');?>
 
 <script type="text/javascript">
 	var page = 1;
@@ -97,7 +99,22 @@ var usr = '';
 		Pagination();
 	});
 
-	
+	//sự kiện lấy kết quả thi
+	$(document).on('click',"button[name='result']",function() {		
+		let username = $(this).closest('tr').attr('username'); // table row ID 	  
+		$.ajax({
+			url:'marks.php',
+			type:'get',
+			data:{username},
+			success:function(data){				
+				$('#modalMarks').modal();
+				$('#tbHistory').empty();
+     			$('#tbHistory').append(data);
+			}
+		})
+	});
+
+
 //sự kiện cập nhật tài khoản
 	$(document).on('click',"input[name='update']",function() {
 		
