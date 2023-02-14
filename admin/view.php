@@ -3,7 +3,7 @@
 
 	$search = $_GET['search'];
 	$page = $_GET['page'];
-	$sql = $conn->prepare("SELECT * FROM ds_cau_hoi where question like '%".$search."%' limit 5 offset ".($page-1)*5);
+	$sql = $conn->prepare("SELECT * FROM ds_cau_hoi where question like '%".$search."%' limit 30 offset ".($page-1)*30);
 	$sql->execute();
 	$index = 1;
 	$data='';
