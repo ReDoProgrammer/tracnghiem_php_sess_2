@@ -39,7 +39,7 @@
         <div class="panel-heading">
           <span id="spFullname" class = "font-weight-bold "></span>Làm bài thi
           <span class="text-right font-weight-bold pl-2" id="divRemainingTime">
-                . Thời gian còn lại: <span id="spRemainingTime">45:59:59</span>
+                . Thời gian còn lại: <span id="spRemainingTime" style="color:yellow; font-weight:bold;">45:59:59</span>
           </span>
         </div>
         <div class="panel-body">
@@ -121,6 +121,7 @@ $('#btnStart').click(function(){
       GetQuestions();
       mark = 0;
       $('#btnFinish').show();
+      $('#btnSave').hide();
       $(this).hide();
       $('#divRemainingTime').show(200);
       result = []; //thiết lập mảng kết quả về mặc định là 1 mảng trống
@@ -140,7 +141,7 @@ $('#btnFinish').click(function(){
   totalSeconds = 0;
   clearInterval();
   $('#divRemainingTime').hide(200);
- 
+  $('#btnSave').show(300);
 });
 
 function CheckResult(){
