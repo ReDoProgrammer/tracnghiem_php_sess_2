@@ -36,12 +36,17 @@
     <div class="panel-group">
 
       <div class="panel panel-primary">
-        <div class="panel-heading"><span id="spFullname" class = "font-weight-bold "></span>Làm bài thi</div>
+        <div class="panel-heading">
+          <span id="spFullname" class = "font-weight-bold "></span>Làm bài thi
+          <span class="text-right font-weight-bold pl-2" id="divRemainingTime">
+                . Thời gian còn lại: <span id="spRemainingTime">45:59:59</span>
+          </span>
+        </div>
         <div class="panel-body">
           <div class="row">
             <div class="col-sm-12 text-right">
               <button type="button" name="button" class="btn btn-success" id="btnStart">Bắt đầu</button>
-            </div>
+            </div>            
           </div>
           <div id="questions"> </div>
           <div class="row">
@@ -68,10 +73,18 @@
 <?php include('child-profile.php')?>
 
 <script type="text/javascript">
+  var totalSeconds= 0;
+var questions;//biến toàn cục để lưu danh sách câu hỏi
+var result =[]; // biến để lưu kết quả thi
+var mark = 0;
+var duration = 45;
+var time_over = false;
+var intervalId = null;
 $(document).ready(function(){
   $('#right-nav').hide();
   $('#btnFinish').hide();
   $('#aHistory').hide();
+  $('#divRemainingTime').hide();
   GetUser();
   $('#btnSave').hide();
 });
@@ -101,9 +114,6 @@ $('#btnSave').click(function(){
 
 
 
-var questions;//biến toàn cục để lưu danh sách câu hỏi
-var result =[]; // biến để lưu kết quả thi
-var mark = 0;
 $('#btnStart').click(function(){
   if(!sessionStorage.userLogin){
 		$('#modalLogin').modal();
@@ -112,7 +122,12 @@ $('#btnStart').click(function(){
       mark = 0;
       $('#btnFinish').show();
       $(this).hide();
+      $('#divRemainingTime').show(200);
       result = []; //thiết lập mảng kết quả về mặc định là 1 mảng trống
+      duration = 45;
+      totalSeconds = duration * 60;
+      intervalId = setInterval(startTimer, 1000);
+      startTimer();
     }
  
 });
@@ -122,11 +137,14 @@ $('#btnFinish').click(function(){
   $('#btnStart').show();
   $('#btnSave').show();
   CheckResult();
+  totalSeconds = 0;
+  clearInterval();
+  $('#divRemainingTime').hide(200);
  
 });
 
 function CheckResult(){
- 
+ clearInterval();
   $('#questions div.row').each(function(k,v){
     //bước 1: lấy đáp án đúng của câu hỏi
     let id = $(v).find('h5').attr('id');
@@ -138,7 +156,7 @@ function CheckResult(){
     let choice = $(v).find('fieldset input[type="radio"]:checked').attr('class');
 
     if(choice == answer){
-      mark +=2;//mỗi câu đúng được cộng 2 điểm
+      mark +=1;//mỗi câu đúng được cộng 1 điểm
     }else{
         console.log('Câu có id: '+id+' sai');
     }
@@ -191,4 +209,22 @@ function GetQuestions(){
     }
   });
 }
+
+
+//hàm đếm ngược thời gian
+function startTimer() {
+    --totalSeconds;
+    hours = Math.floor(totalSeconds / 3600);
+    minutes = Math.floor((totalSeconds - hours * 3600) / 60);
+    seconds = totalSeconds - (hours * 3600 + minutes * 60);
+    $('#spRemainingTime').html(`${hours<10?'0'+hours:hours}:${minutes<10?'0'+minutes:minutes}:${seconds<10?'0'+seconds:seconds}`);
+     
+    
+
+    if (totalSeconds == 0) {
+      time_over = true;
+      clearInterval();
+      $("#btnFinish").click();
+    }
+  }
 </script>
